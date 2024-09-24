@@ -1,0 +1,104 @@
+﻿@page "/schoolclasses"
+@attribute [Authorize(Roles = "Administrator,school")]
+
+<h1>Classes</h1>
+
+<p>Select a class to view details:</p>
+
+<!-- Dynamically create buttons for Class 1 to 10 -->
+@for (int i = 1; i <= 10; i++)
+{
+    <button @onclick="@( () => ShowClassDetails(i) )">Class @i</button>
+}
+
+<!-- Display class details after a class is selected -->
+@if (selectedClass.HasValue)
+{
+    <div style="margin-top: 20px;">
+        <h2>Class Details for Class @selectedClass</h2>
+        <p>Class Name: @ClassName</p>
+        <p>Number of Students: @StudentCount</p>
+        <p>Subjects: @Subjects</p>
+    </div>
+}
+else
+{
+    <p>Please select a class to view its details.</p>
+}
+
+@code {
+    // Store the selected class number (nullable)
+    private int? selectedClass = null;
+
+    // Class details (nullable strings to allow null assignment)
+    private string? ClassName = null;
+    private int StudentCount = 0;
+    private string? Subjects = null;
+
+    // Method to update class details when a button is clicked
+    private void ShowClassDetails(int classNumber)
+    {
+        selectedClass = classNumber; // Update the selected class
+
+        // Change class data based on the class number
+        switch (classNumber)
+        {
+            case 1:
+                ClassName = "1st Grade";
+                StudentCount = 25;
+                Subjects = "English, Math, Basic Science";
+                break;
+            case 2:
+                ClassName = "2nd Grade";
+                StudentCount = 28;
+                Subjects = "English, Math, Science, Art";
+                break;
+            case 3:
+                ClassName = "3rd Grade";
+                StudentCount = 30;
+                Subjects = "English, Math, Science, Social Studies";
+                break;
+            case 4:
+                ClassName = "4th Grade";
+                StudentCount = 32;
+                Subjects = "English, Math, Science, History";
+                break;
+            case 5:
+                ClassName = "5th Grade";
+                StudentCount = 35;
+                Subjects = "English, Math, Science, Geography";
+                break;
+            case 6:
+                ClassName = "6th Grade";
+                StudentCount = 33;
+                Subjects = "English, Math, Science, History, Physical Education";
+                break;
+            case 7:
+                ClassName = "7th Grade";
+                StudentCount = 34;
+                Subjects = "English, Math, Science, Chemistry";
+                break;
+            case 8:
+                ClassName = "8th Grade";
+                StudentCount = 36;
+                Subjects = "English, Math, Science, Biology";
+                break;
+            case 9:
+                ClassName = "9th Grade";
+                StudentCount = 38;
+                Subjects = "English, Math, Physics, Chemistry";
+                break;
+            case 10:
+                ClassName = "10th Grade";
+                StudentCount = 40;
+                Subjects = "English, Math, Physics, Chemistry, Computer Science";
+                break;
+            default:
+                // Fallback if no class matches (shouldn't happen)
+                ClassName = "Unknown Class";
+                StudentCount = 0;
+                Subjects = "N/A";
+                break;
+        }
+    }
+}
